@@ -5,7 +5,6 @@ import (
 	"errors"
 	"os"
 	"strings"
-
 	"time"
 )
 
@@ -44,7 +43,7 @@ func (n *Note) GetContent() string {
 	return n.Content
 }
 
-func (n Note) SaveNoteInFile() error {
+func (n Note) SaveInFile() error {
 	fileName := strings.ReplaceAll(n.Title, " ", "_")
 	fileName =  strings.ToLower(fileName) + ".json"
 	jsonNote, err := json.Marshal(n)
@@ -54,8 +53,4 @@ func (n Note) SaveNoteInFile() error {
 	}
 	
 	return os.WriteFile(fileName, jsonNote, 0644)
-	 
-
 }
-
-

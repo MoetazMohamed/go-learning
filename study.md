@@ -107,3 +107,81 @@ if err !=  nil{
 
 * You can have different package. Then a package can be imported and used in different places and different projects u just need to import it. you dont import only name but the path that you should get go.mod
 * Exported functions in go must be capital letter surprise mother fuckers
+
+### Structs 
+It is very similar to classes 
+We use it to group related fields together and we can create method that will manipulate such data
+####   How to create structs 
+```
+package main 
+import (
+    "time"
+)
+type User struct{
+ firstName string
+ lastName string 
+ birthDate string
+ age int 
+ createdAt time.Time
+}
+
+func main(){
+    // how to initialize a user using struct
+    // we can use this when we dont know the order of attributes in struct
+    user:=  User {
+        firstName : "Moetaz",
+        lastName : "Mohamed",
+        birthDate : "20/02/2002,
+        createdAt : time.Now(),
+    }
+
+    var user2 User =  User{
+        "Moetaz",
+        "Mohamed",
+        "20/02/2002",
+        20,
+        time.Now(),
+
+    } 
+
+}
+```
+
+##### Methods for structs 
+* In order to add a method to a struct, you need to pass this of the class refrence
+* you can pass it as parameter but then you can call the method and pass the object 
+* You can use a receiver. If u used this, you can call the method directly from the the object using the dot notation
+```
+// method to update user 
+func (*User u) UpdateUser(firstName, lastName string){
+    u.firstName = "krnkrn"
+    u.lastName = "nfri"
+}
+// if u passed User only it will not update the user that called the function because it will create a new one but here you are passing a pointer.
+```
+#### Encapsulation
+* To encapsulate attributes in a struct you can make them small letters then you cant access them out of the file 
+* To make them public make the attributes' first letter capital and then they are public
+
+#### Constructors 
+* To create a contructor, u need to create a function call New. This function should return the struct type. It might also return structType, error.
+* We can add validation in the constructor 
+
+```
+func New(firstName, lastName, birthDate string) User, nil{
+if(firstName == "", lastName == "" , birthDate == ""){
+    retrun nil , errors.New("User is invalid")
+}
+
+return User {
+    firstName : firstName,
+    lastName : lastName, 
+    birthDate : birthDate,
+}, nil
+}
+```
+
+####   Expanding Structs
+* The whole idea is that you can embed a struct inside a struct 
+* To do this, u can just add one of the attributes as struct type make it public and you have acccess to the methods of the embeded struct 
+
