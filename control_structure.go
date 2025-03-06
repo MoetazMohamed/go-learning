@@ -7,7 +7,7 @@ import (
 
 const balanceFile = "balance.txt"
 
-func main(){
+func main4(){
 	balance , err := fileops.ReadBalanceFromFile(balanceFile)
 	if err != nil {
 		fmt.Println("ERROR: %v", err)
