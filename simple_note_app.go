@@ -28,7 +28,7 @@ func getUserInput (prompt string ) string{
 	return text
 
 }
-func main(){
+func main3(){
 	for {
 	var title string = getUserInput("Please enter title of your note: ")
 	var content string = getUserInput("Please enter title of your note: ")

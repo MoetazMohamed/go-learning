@@ -185,3 +185,103 @@ return User {
 * The whole idea is that you can embed a struct inside a struct 
 * To do this, u can just add one of the attributes as struct type make it public and you have acccess to the methods of the embeded struct 
 
+## Arrays
+### Initialization 
+There are two different types of arrays in go 
+* Slices 
+* Fixed Size Array
+
+Arrays are created in two different ways in Go
+* Declare variable var variable_name [length]Type
+* This array has a fixed size of 10 and size is unchangable 
+```
+var arr [10]int
+```
+The other way of declaring an array is using :=
+```
+strArr :=  [2]string {"Moetaz", "Mohamed"}
+```
+You can infer the size of the array from initialization if u used ellipses 
+```
+arr := [...]string{"moetaz", "yasser"}
+```
+### Type if Arrays
+Arrays are vaule type not a refrence type. This means that copying an array to another variable you create a copy of the array in a different memeory and you dont change the refrence of the array
+
+#### 
+Effects 
+* Assigning a new variable to save array will create copy of the elements of the array 
+```
+arr := [2]int{1,2}
+arr2 := arr
+arr2[1] =100
+fmt.Println(arr[1]) ==> 2
+fmt.Println(arr2[2]) ==> 100
+```
+
+* Comparison between elements of array using == notation is valide 
+```
+arr := int[2]{1,2}
+arr2 :=  int[2]{0,2}
+fmt.Println(arr == arr2) ==> false 
+arr2[0] = 1
+fmt.Println(arr == arr2) ==> true
+```
+## Slices 
+Biggest differece between array and slice is that a slice length can expand and shrink
+### Inialization
+* Variable Declaration 
+```
+var arr []int
+```
+* Assign Value 
+```
+arr = []int{1,2,3,4,4}
+```
+#### VIP
+Slices are descriptors to arrays in go 
+* Pointer to the begining of an array 
+* length of an array 
+* capacity of an array 
+![alt text](image.png)
+
+#### How this can affect our code
+We can update any part of the array using slice and it will be so efficient because taking slice o(1)
+```
+arr := int[3]{1,2,3}
+sliced := arr[1:3]
+fmt.Println(sliced) // {2,3}
+// the slicing is o(1) because slice saves pointer at index 1 and capacity and length are 2
+
+```
+* You can easily change any fixed array to a slice  
+```
+var arr [5]int = [5]int{1,2,3,4,5}
+arr2 := arr[:] // {1,2,3,4,5} with flexible size
+```
+
+* When changing any values in the sliced array will change the values in the original array because slice puts a pointer to the first index of element of sliced array
+
+### Copying elements to create slices
+* array has a fixed length, so when we slice it what will be the capacity of the slice? It will be the size of the original array from the starting element that u started slicing from
+* length will be the number of elements you sliced
+* what if you want to create a slice of bigger size and compy the elements u can use two methods make and copy 
+``` 
+arr:= [3]int{1,2,3}
+
+sliced:= make([]int, 3 , len(arr)*2)
+copy(sliced, arr)
+fmt.Println(sliced) // 1,2,3
+fmt.Println(cap(sliced)) // 6 
+fmt.Println(len(sliced)) // 3
+```
+### Using slice as a list 
+* append method can be used to append elements to the end of the slice. This will increase the size of the slice dynamically
+* Vert similar to ArrayList in java and list in c# 
+* This also provides us a new to copy fixed size array. We can expand and array and use append 
+```
+var fixedArr [3]int = []int{1,2,3}
+var slicedArr []int;
+append(slicedArr, ...fixedArr)
+```
+
