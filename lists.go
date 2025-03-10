@@ -12,7 +12,7 @@ type Product struct {
 	price float64
 }
 
-func main() {
+func main6() {
 	// how to create arrays
 	// 1. prdarr := [length]type {value1,  value2}
 	// 2. var productNames []string
@@ -110,6 +110,25 @@ fmt.Printf("Add new element to the slice %v\n", courseGoals)
 	})
 	fmt.Println(products)
 
+	index1, index2, err := TwoSum([]int{1,2,3,4}, 10)
+
+	if(err != nil){
+		fmt.Println(err)
+	}else {
+		fmt.Println(index1, index2)
+	}
+
+     strMap := map[string]string{}
+	 strMap["google"] = "gg"
+	 strMap["facebook"] = "ff"
+	 strMap["instgram"] = "ii"
+	 for key , val :=  range strMap{
+		fmt.Println(key, val)
+	 } 
+
+	 for i , val := range slicedArr {
+		fmt.Println(i , val)
+	 }
 }
 // 2 3 4 5 6 7 8    7 - 2 / 2 = 5 /2 = 2+ 2
 func binarySearch(arr []int , target int) (int , error){
@@ -133,4 +152,21 @@ func binarySearch(arr []int , target int) (int , error){
 	}
 
 	return -1, errors.New("number is not found")
+}
+
+func TwoSum(arr []int, target int) (int , int , error){
+	dict :=  map[int]int{}
+
+	for i:= 0 ; i < len(arr) ; i++{
+		val, exist := dict[target - arr[i]] 
+		if !exist{
+			dict[arr[i]] = i
+		} else {
+			return val, i , nil
+		}
+		
+		
+	}
+	return -1 ,-1 , errors.New("doesnt exisit")
+
 }
